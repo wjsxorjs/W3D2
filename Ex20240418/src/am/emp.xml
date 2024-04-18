@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- DTD파일 가져옴. PUBLIC : 표준안 -->
+
+  
+  
+  
+<mapper namespace="emp">
+
+  <select id="all" resultType="am.EmpVO">
+    select * from emp where id = #{id}
+  </select>
+  
+  <!-- 사원 추가 기능 -->
+  <insert id="add"  parameterType="am.EmpVO"> <!-- 두 개 이상의 변수를 받을 때는 객체로 받아온다. -->
+    INSERT
+    INTO emp(empno, ename, job, sal, hiredate, deptno)
+    VALUES(#{empno}, #{ename}, #{job}, #{sal}, #{hiredate}, #{deptno})
+    <!-- values의 변수명은 parameterType에서 받아오는 객체의 멤버변수명을 사용해야한다. -->
+  </insert>
+</mapper>
