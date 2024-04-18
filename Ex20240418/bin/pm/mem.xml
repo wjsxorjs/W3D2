@@ -22,7 +22,7 @@
 		select *
 		from member_t
 		<where>
-			<trim prefixOverrides="AND" suffixOverrides="AND"> <!-- 무의미한 키워드를 제거해준다. -->
+			<trim prefixOverrides="AND" suffixOverrides="AND" > <!-- 무의미한 키워드를 제거해준다. -->
 				<if test="m_email != null">
 					m_email LIKE CONCAT('%',#{m_email},'%')
 				</if>
