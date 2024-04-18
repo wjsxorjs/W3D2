@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- DTD파일 가져옴. PUBLIC : 표준안 -->
+
+  
+  
+  
+<mapper namespace="member">
+
+  <select id="all" resultType="am.MemberVO">
+    select * from member_t where id = #{id}
+  </select>
+  
+  <!-- 로그인 기능 -->
+  <select id="login"  parameterType="am.MemberVO" resultType="am.MemberVO"> <!-- 두 개 이상의 변수를 받을 때는 객체로 받아온다. -->
+    SELECT *
+	FROM member_t
+	WHERE m_id = #{m_id} AND m_pw = #{m_pw}
+    <!-- values의 myBatis 변수명은 parameterType에서 받아오는 객체의 멤버변수명을 사용해야한다. -->
+  </select>
+  
+  <select id="login2"  parameterType="java.util.Map" resultType="am.MemberVO"> <!-- 두 개 이상의 변수를 받을 때는 객체로 받아온다. -->
+    SELECT *
+	FROM member_t
+	WHERE m_id = #{m_id} AND m_pw = #{m_pw}
+    <!-- values의 myBatis 변수명은 parameterType에서 받아오는 객체의 멤버변수명을 사용해야한다. -->
+  </select>
+</mapper>

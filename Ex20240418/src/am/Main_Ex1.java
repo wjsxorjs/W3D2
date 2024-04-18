@@ -2,6 +2,9 @@ package am;
 
 
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -49,9 +52,59 @@ public class Main_Ex1 {
 			ss.rollback();
 		}
 		
+	}
+	
+	private void login(String id, String pw) {
+		// 로그인 SQL문장을 호출하기 위해 SqlSession을 얻어낸다.
+		SqlSession ss = factory.openSession();
 		
+		
+		MemberVO mvo = new MemberVO();
+		mvo.setM_id(id);
+		mvo.setM_pw(pw);
+		
+		// 로그인은 결과객체가 1개다.
+		
+		MemberVO vo = ss.selectOne("member.login", mvo);
+		
+		if(vo != null) {
+			System.out.println("로그인 성공");
+		} else {
+			System.out.println("아이디 또는 비밀번호가 다릅니다.");
+		}
+		
+		
+		if(ss != null) {
+			ss.close();
+		}
+
+	}
+	
+	
+	private void login2(String id, String pw) {
+		// 로그인 SQL문장을 호출하기 위해 SqlSession을 얻어낸다.
+		SqlSession ss = factory.openSession();
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("m_id", id);
+		map.put("m_pw", pw);
+		
+		MemberVO vo = ss.selectOne("member.login2", map);
+		
+		if(vo != null) {
+			System.out.println("로그인 성공");
+		} else {
+			System.out.println("아이디 또는 비밀번호가 다릅니다.");
+		}
+		
+		
+		if(ss != null) {
+			ss.close();
+		}
 		
 	}
+	
 
 	public static void main(String[] args) throws Exception {
 		Main_Ex1 ex1 = new Main_Ex1();
@@ -59,7 +112,18 @@ public class Main_Ex1 {
 		
 		
 		// 저장을 하기 위해서 Main_Ex1 안에 있는 add를 호출한다.
-		ex1.add("7961", "JANE", "DEVELOPER", "1400", "1983-01-11", "40");
+//		ex1.add("7962", "JAKE", "DEVELOPER", "1400", "1983-01-11", "40");
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.print("아이디: ");
+		String id = scan.nextLine();
+		System.out.print("비밀번호: ");
+		String pw = scan.nextLine();
+		
+		System.out.print("login() : ");
+		ex1.login(id, pw);
+		System.out.print("login2() : ");
+		ex1.login2(id, pw);
 
 	}
 
